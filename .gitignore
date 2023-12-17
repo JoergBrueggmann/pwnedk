@@ -1,3 +1,7 @@
+info/
+*.lock
+*.cabal
+*~
 dist
 dist-*
 cabal-dev
