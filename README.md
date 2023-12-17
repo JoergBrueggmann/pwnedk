@@ -82,6 +82,7 @@ echo "alexguo029" | pwnedk -nv
 
        - in CLI, enter
               $ stack install
+       - you may have to set the environment path for the executable
 
 
 ## Author
