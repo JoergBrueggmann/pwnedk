@@ -46,7 +46,7 @@ echo "alexguo029" | pwnedk -nv
 ## Runtime requirements
 
 - The standard command line tool 'curl' is installed properly (with path variables set properly)
-       E.g. The command line 'curl https://api.pwnedpasswords.com/range/BAC09' provide the reply at stdout
+       E.g. The command line 'curl https://api.pwnedpasswords.com/range/BAC09' provides a reply to stdout.
 
 
 ## Build requirements
