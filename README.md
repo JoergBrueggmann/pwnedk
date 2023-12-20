@@ -1,15 +1,30 @@
 # pwnedk
 
-The command line tool 'pwnedk' searches for leaked passwords applying k-anonymity.
+## Online *password checkers* - you don't *trust* them, do you?
 
-K-anonymity means it does not send the password to check nor it sends its complete hash code.
+The command line tool 'pwnedk' is available in source code, 
+easily showing that your password in clear text will not be transfered to anyone.
+
+Even the hashcode will not be transfered completely, 
+because 'pwnedk' searches for leaked passwords applying *k-anonymity*!
+
+**K-anonymity** means it does not send the password to check nor it sends its complete hash code. See also https://en.wikipedia.org/wiki/K-anonymity and https://www.youtube.com/watch?v=hhUb5iknVJs.
 
 NOTE: It uses the API "Searching by range" from "haveibeenpwned.com" and the command "curl".
 See also: https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange
 
-If you want to understand k-anonymity the following sources are recommended:
-- https://www.youtube.com/watch?v=hhUb5iknVJs
-- https://en.wikipedia.org/wiki/K-anonymity
+
+This is donationware.
+
+
+## Donations
+
+Here: https://www.paypal.com/paypalme/sw4sd
+
+Suggested amount, to avoid fee overhead: 3.90 $
+
+
+Thank you!
 
 
 ## Synopsis
@@ -34,13 +49,72 @@ pwnedk [ option ]
               ...like plain but will replace the symbol for the NOT ok case to <noksymbol>.
 
 
-## Example
+## Example 1
+
+You want to check whether the password "alexguo029" is leaked, type the command below. An exclamation mark will indicate that the password is leaked.
 
 ### Command
 echo "alexguo029" | pwnedk -nv
 
 ### Output
 !
+
+
+## Example 2
+
+If you want to be guided and understand the whole process then type 'pwnedk' as indicated below, and follow the instruction to enter the password.
+
+### Command
+pwnedk
+
+### Output
+NAME
+       pwnedk
+
+SYNOPSIS
+       pwnedk [ option ]
+
+DESCRIPTION
+       Searches for leaked passwords applying k-anonymity.
+       K-anonymity means it does not send the password nor 
+       it sends the complete hash code.
+
+       NOTE: It uses the API "Searching by range" from "haveibeenpwned.com".
+       See also: https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange
+
+Please, enter the password to check here:alexguo029
+
+    The hash code of "alexguo029" is 21BD100D4F6E8FA6EECAD2A3AA415EEC418D38EC.
+    The first 5 characters of the hash code are 21BD1.
+    The command "curl https://api.pwnedpasswords.com/range/21BD1 is executed.
+
+The following entries have been found:
+    00D4F6E8FA6EECAD2A3AA415EEC418D38EC:3
+
+    Your password "alexguo029" is leaked!
+
+    Do NOT use password "alexguo029"!
+
+          :-(
+
+
+## Questions?
+
+### Q: Where do I see that pwnedk will not transfer the password in clear text and only a small portion of the hash-code?
+
+### A: In file PwnedK.hs there are the following lines:
+
+       let
+              sha1Hash = hexStringFromPassword sPassword
+              (first5FromHash, restFromHash) = Lst.splitAt 5 sha1Hash
+              requestURL = 
+                     "https://api.pwnedpasswords.com/range/" ++ first5FromHash
+
+The line `sha1Hash = hexStringFromPassword sPassword` creates the hash code string.
+
+The line `(first5FromHash, restFromHash) = Lst.splitAt 5 sha1Hash` splits the hash code string in 5 characters and the rest.
+
+The line `"https://api.pwnedpasswords.com/range/" ++ first5FromHash` shows that only 5 characters are used to be send to the server.
 
 
 ## Runtime requirements
@@ -90,9 +164,9 @@ echo "alexguo029" | pwnedk -nv
 Written by Jörg Karl-Heinz Walter Brüggmann.
 
 
-## Repoerting bugs
+## Reporting bugs or suggestions
 
-GitHub: <https://github.com/JoergBrueggmann>
+Here at GitHub.
 
 
 ## Copyright
