@@ -5,7 +5,7 @@
 The command line tool 'pwnedk' is available in source code, 
 easily showing that your password in clear text will not be transferred to anyone.
 
-Even the hashcode will not be transferred completely, 
+Even the hash code will not be transferred completely, 
 because 'pwnedk' searches for leaked passwords applying *k-anonymity*!
 
 **K-anonymity** means it does not send the password to check nor it sends its complete hash code. See also https://en.wikipedia.org/wiki/K-anonymity and https://www.youtube.com/watch?v=hhUb5iknVJs.
