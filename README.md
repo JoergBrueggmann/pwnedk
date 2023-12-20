@@ -21,7 +21,9 @@ This is donationware.
 
 Here: https://www.paypal.com/paypalme/sw4sd
 
-Dont be below 3.90 $ to avoid unreasonable fee overhead.
+Dont be below 3.90 $ to avoid unreasonable fee overhead, if you donate.
+
+Please, donate if you think that 'pwnedk' is useful to you.
 
 
 **Thank you!**
