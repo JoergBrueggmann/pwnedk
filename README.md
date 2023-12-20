@@ -3,9 +3,9 @@
 ## Online *password checkers* - you don't *trust* them, do you?
 
 The command line tool 'pwnedk' is available in source code, 
-easily showing that your password in clear text will not be transfered to anyone.
+easily showing that your password in clear text will not be transferred to anyone.
 
-Even the hashcode will not be transfered completely, 
+Even the hashcode will not be transferred completely, 
 because 'pwnedk' searches for leaked passwords applying *k-anonymity*!
 
 **K-anonymity** means it does not send the password to check nor it sends its complete hash code. See also https://en.wikipedia.org/wiki/K-anonymity and https://www.youtube.com/watch?v=hhUb5iknVJs.
@@ -21,10 +21,10 @@ This is donationware.
 
 Here: https://www.paypal.com/paypalme/sw4sd
 
-Suggested amount, to avoid fee overhead: 3.90 $
+Dont be below 3.90 $ to avoid unreasonable fee overhead.
 
 
-Thank you!
+**Thank you!**
 
 
 ## Synopsis
@@ -54,10 +54,12 @@ pwnedk [ option ]
 You want to check whether the password "alexguo029" is leaked, type the command below. An exclamation mark will indicate that the password is leaked.
 
 ### Command
-echo "alexguo029" | pwnedk -nv
+
+       echo "alexguo029" | pwnedk -nv
 
 ### Output
-!
+
+       !
 
 
 ## Example 2
@@ -65,37 +67,39 @@ echo "alexguo029" | pwnedk -nv
 If you want to be guided and understand the whole process then type 'pwnedk' as indicated below, and follow the instruction to enter the password.
 
 ### Command
-pwnedk
 
-### Output
-NAME
        pwnedk
 
-SYNOPSIS
-       pwnedk [ option ]
+### Output
 
-DESCRIPTION
-       Searches for leaked passwords applying k-anonymity.
-       K-anonymity means it does not send the password nor 
-       it sends the complete hash code.
+       NAME
+              pwnedk
 
-       NOTE: It uses the API "Searching by range" from "haveibeenpwned.com".
-       See also: https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange
+       SYNOPSIS
+              pwnedk [ option ]
 
-Please, enter the password to check here:alexguo029
+       DESCRIPTION
+              Searches for leaked passwords applying k-anonymity.
+              K-anonymity means it does not send the password nor 
+              it sends the complete hash code.
 
-    The hash code of "alexguo029" is 21BD100D4F6E8FA6EECAD2A3AA415EEC418D38EC.
-    The first 5 characters of the hash code are 21BD1.
-    The command "curl https://api.pwnedpasswords.com/range/21BD1 is executed.
+              NOTE: It uses the API "Searching by range" from "haveibeenpwned.com".
+              See also: https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange
 
-The following entries have been found:
-    00D4F6E8FA6EECAD2A3AA415EEC418D38EC:3
+       Please, enter the password to check here:alexguo029
 
-    Your password "alexguo029" is leaked!
+       The hash code of "alexguo029" is 21BD100D4F6E8FA6EECAD2A3AA415EEC418D38EC.
+       The first 5 characters of the hash code are 21BD1.
+       The command "curl https://api.pwnedpasswords.com/range/21BD1 is executed.
 
-    Do NOT use password "alexguo029"!
+       The following entries have been found:
+       00D4F6E8FA6EECAD2A3AA415EEC418D38EC:3
 
-          :-(
+       Your password "alexguo029" is leaked!
+
+       Do NOT use password "alexguo029"!
+
+              :-(
 
 
 ## Questions?
