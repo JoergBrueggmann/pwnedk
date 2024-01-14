@@ -1,14 +1,16 @@
 {-|
 Description : provides helper functions for lists.
-Copyright   : (c) Jörg K.-H. W. Brüggmann, 2021-2023
+Copyright   : (c) Jörg K.-H. W. Brüggmann, 2021-2024
 License     : GPLv3+, see also file 'LICENSE' and 'README.md'
 Maintainer  : info@joerg-brueggmann.de
 Stability   : experimental
 Portability : POSIX
 
-The module Type provides advanced helper functions for lists.
+The module 'List' provides advanced helper functions for lists.
 
-See also more basic list functions in module Safer.
+See also more basic list functions in module 'Safer'.
+
+See also sting functions in module 'String'.
 
 Suggested import line: 'import qualified List as Lst'
 
@@ -17,24 +19,28 @@ Suggested import line: 'import qualified List as Lst'
 
 module List
     (
+        Lst.splitOn, 
         areAllOrdUnique, 
         duplicates, 
         atDef, 
-        atMay, 
+        mAt, 
         setAt, 
         takeEnd, 
+        dropBegin, 
         dropEnd, 
         splitAt, 
         isLengthMin, 
         shiftR, 
         mListConcat, 
-        isLongAtLeast
+        isLongAtLeast, 
+        doesMatchBegin
     ) where
 
 
 import qualified Safer as Sfr
 
 import qualified Data.List as Lst
+import qualified Data.List.Split as Lst
 import Prelude hiding (splitAt)
 
 
@@ -100,11 +106,11 @@ atDef aDef (_:la) nIndex
     | nIndex > 0 = atDef aDef la (nIndex - 1)   -- case: index is positive
     | otherwise  = aDef                         -- case: index is negative
 
-atMay :: [a] ->Integer ->  Maybe a
-atMay []     _ = Nothing                        -- case: is empty anyway
-atMay (a:_)  0 = Just a                         -- case: index is 0 -> take it
-atMay (_:la) nIndex
-    | nIndex > 0 = atMay la (nIndex - 1)        -- case: index is positive
+mAt :: [a] -> Integer ->  Maybe a
+mAt []     _ = Nothing                        -- case: is empty anyway
+mAt (a:_)  0 = Just a                         -- case: index is 0 -> take it
+mAt (_:la) nIndex
+    | nIndex > 0 = mAt la (nIndex - 1)        -- case: index is positive
     | otherwise  = Nothing                      -- case: index is negative
 
 takeEnd :: Integer -> [a] -> [a]
@@ -115,13 +121,52 @@ takeEnd ni lx                                       -- algorithm adapted from Da
         takeEnd' (_:lrx) (_:ys) = takeEnd' lrx ys
         takeEnd' lx' _ = lx'
 
+-- dropBegin
+-- | ...removes the first elements of a given amount.
+{- |
+* will drop the given amount at the maximum
+* will drop elements as they are available
+
+Example:
+
+    @
+print $ dropBegin (-1) "123"
+print $ dropBegin 0 "123"
+print $ dropBegin 1 "123"
+print $ dropBegin 2 "123"
+print $ dropBegin 3 "123"
+print $ dropBegin 4 "123"
+    @
+
+output:
+
+    @
+"123"
+"123"
+"23"
+"3"
+""
+""
+    @
+-}
+dropBegin 
+    -- | the maximum amount of elements to be removed
+    :: Integer 
+    -- | list of elements where elements to be removed
+    -> [a] 
+    -- | the list of elements where elements are removed
+    -> [a]
+dropBegin _ [] = []
+dropBegin ni lx@(_:lrx) 
+    | ni <= 0               = lx
+    | otherwise             = dropBegin (ni - 1) lrx
+
 dropEnd :: Integer -> [a] -> [a]
 dropEnd _ [] = []
 dropEnd ni lx@(x:lrx)
     | ni <= 0               = lx
     | isLengthMin ni lrx = x : dropEnd ni lrx
     | otherwise             = []
-
 
 -- splitAt
 -- | ...splits a list into a tupple of elements before and after the given position.
@@ -131,9 +176,12 @@ dropEnd ni lx@(x:lrx)
 * to the right means towards tail of the list
 -}
 splitAt 
-    :: Integer  -- | position, whereas 0 means left most position
-    -> [a]      -- | list to split
-    -> ([a], [a])   -- | tupple of split parts, left most and right most
+    -- | position, whereas 0 means left most position
+    :: Integer
+    -- | list to split
+    -> [a]
+    -- | tupple of split parts, left most and right most
+    -> ([a], [a])
 splitAt n lx = splitAt' n ([], lx)
     where
         splitAt' :: Integer -> ([a], [a]) -> ([a], [a])
@@ -183,3 +231,23 @@ isLongAtLeast ni [] = ni <= 0
 isLongAtLeast ni (_:lrx)
     | ni <= 0   = True
     | otherwise = isLongAtLeast (ni - 1) lrx
+
+-- doesMatchBegin
+-- | ...whether a list of elements equals the first elements of another list
+{- |
+* if the list to be checked is smaller than the list of elements to be checked
+    then the the list to be checked is not considered a match
+-}
+doesMatchBegin 
+    :: Eq a 
+    -- | the list of elements that have to be in the list to check
+    => [a] 
+    -- | the list to be checked, where elements have to be the same
+   -> [a] 
+    -- | True if it matches otherwise False
+    -> Bool
+doesMatchBegin sPattern sContent
+        | isLengthMin (Sfr.niLen sPattern) sContent = sContentToCompare == sPattern
+        | otherwise                                 = False
+    where
+        (sContentToCompare, _) = splitAt (Sfr.niLen sPattern) sContent

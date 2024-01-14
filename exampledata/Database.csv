@@ -1,0 +1,43 @@
+"Account","Login Name","Password","Web Site","Comments"
+"2fast4u","Racer42","Password1","https://www.2fast4you.it/","https://haveibeenpwned.com/PwnedWebsites:
+In December 2017, the Belgian motorcycle forum 2fast4u discovered a data breach of their system. The breach of the vBulletin message board impacted over 17k individual users and exposed email addresses, usersnames and salted MD5 passwords.
+
+Breach date: 20 December 2017
+Date added to HIBP: 7 January 2018
+Compromised accounts: 17,706
+Compromised data: Email addresses, Passwords, Usernames"
+"500px","Michael321","alexguo028","https://500px.com/","https://haveibeenpwned.com/PwnedWebsites:
+In mid-2018, the online photography community 500px suffered a data breach. The incident exposed almost 15 million unique email addresses alongside names, usernames, genders, dates of birth and either an MD5 or bcrypt password hash. In 2019, the data appeared listed for sale on a dark web marketplace (along with several other large breaches) and subsequently began circulating more broadly. The data was provided to HIBP by a source who requested it to be attributed to \"BenjaminBlue@exploit.im\".
+
+Breach date: 5 July 2018
+Date added to HIBP: 25 March 2019
+Compromised accounts: 14,867,999
+Compromised data: Dates of birth, Email addresses, Genders, Geographic locations, Names, Passwords, Usernames"
+"Adecco","MrX","no3pv","https://jobs.adecco.de","https://haveibeenpwned.com/PwnedWebsites:
+In March 2021, news broke of a massive data breach impacting millions of Adecco customers in South America which was subsequently sold on a popular hacking forum. The breach exposed over 4M unique email addresses as well as genders, dates of birth, marital statuses, phone numbers and passwords stored as bcrypt hashes.
+
+Breach date: 3 January 2021
+Date added to HIBP: 31 May 2022
+Compromised accounts: 4,284,538
+Compromised data: Email addresses, Genders, Geographic locations, Marital statuses, Names, Passwords, Phone numbers"
+"Adobe","MrY","91pz6","https://auth.services.adobe.com/en_US/deeplink.html#/","https://haveibeenpwned.com/PwnedWebsites:
+In October 2013, 153 million Adobe accounts were breached with each containing an internal ID, username, email, encrypted password and a password hint in plain text. The password cryptography was poorly done and many were quickly resolved back to plain text. The unencrypted hints also disclosed much about the passwords adding further to the risk that hundreds of millions of Adobe customers already faced.
+
+Breach date: 4 October 2013
+Date added to HIBP: 4 December 2013
+Compromised accounts: 152,445,165
+Compromised data: Email addresses, Password hints, Passwords, Usernames"
+"Sony","Dude2023","Jameson2009","https://www.sony.com/en/","https://haveibeenpwned.com/PwnedWebsites:
+In 2011, Sony suffered breach after breach after breach — it was a very bad year for them. The breaches spanned various areas of the business ranging from the PlayStation network all the way through to the motion picture arm, Sony Pictures. A SQL Injection vulnerability in sonypictures.com lead to tens of thousands of accounts across multiple systems being exposed complete with plain text passwords.
+
+Breach date: 2 June 2011
+Date added to HIBP: 4 December 2013
+Compromised accounts: 37,103
+Compromised data: Dates of birth, Email addresses, Genders, Names, Passwords, Phone numbers, Physical addresses, Usernames"
+"Linux Mint","Frodo","t2im7","https://linuxmint.com/","https://haveibeenpwned.com/PwnedWebsites:
+In February 2016, the website for the Linux distro known as Linux Mint was hacked and the ISO infected with a backdoor. The site also ran a phpBB forum which was subsequently put up for sale complete with almost 145k email addresses, passwords and other personal subscriber information.
+
+Breach date: 21 February 2016
+Date added to HIBP: 22 February 2016
+Compromised accounts: 144,989
+Compromised data: Avatars, Dates of birth, Email addresses, Geographic locations, IP addresses, Passwords, Time zones, Website activity"

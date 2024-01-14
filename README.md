@@ -1,120 +1,189 @@
 # pwnedk
 
 ## Online *password checkers* - you don't *trust* them, do you?
+The command line tool 'pwnedk' checks quasi anonymously (applying *k-anonymity*) whether a particular password is leaked.
+It searches for leaked passwords applying *k-anonymity* via the API "Searching by range" of haveibeenpwned.com (HIBP).
 
-The command line tool 'pwnedk' is available in source code, 
-easily showing that your password in clear text will not be transferred to anyone.
+It is available in source code, and easily showing that your password in clear text will not be transferred to anyone.
 
-Even the hash code will not be transferred completely, 
-because 'pwnedk' searches for leaked passwords applying *k-anonymity*!
+Even the hash code will not be transferred completely, because **K-anonymity** means it does not send the password to 
+check nor it sends its complete hash code.
+See also https://www.youtube.com/watch?v=hhUb5iknVJs, https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange and 
+https://en.wikipedia.org/wiki/K-anonymity.
 
-**K-anonymity** means it does not send the password to check nor it sends its complete hash code. See also https://en.wikipedia.org/wiki/K-anonymity and https://www.youtube.com/watch?v=hhUb5iknVJs.
-
-NOTE: It uses the API "Searching by range" from "haveibeenpwned.com" and the command "curl".
-See also: https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange
+NOTE: It uses the command line tool "curl".
 
 
-This is donationware.
+This is donation ware.
 
 
 ## Donations
+Please, donate if you think that 'pwnedk' is useful to you or when you want to support software projects of *software 4sd*.
 
 Here: https://www.paypal.com/paypalme/sw4sd
 
-Dont be below 3.90 $ to avoid unreasonable fee overhead, if you donate.
-
-Please, donate if you think that 'pwnedk' is useful to you.
-
+If you are going to donate, please don't be below 3.90 $ to avoid unreasonable fee overhead.
 
 **Thank you!**
 
 
 ## Synopsis
-
-pwnedk [ option ]
-
+       pwnedk [ --version ]
+       pwnedk [ --help ]
+       pwnedk [ -i | -ie ]
+       pwnedk [ -r <RecordBegin> <FieldSeperator> <RecordBegin> ]
+              [ -p <ReferenceColumn> <PasswordColumn> ]
+              [ -l ]
 
 ## Options
+       --version
+              ...prints the version of 'pwnedk' all other parameters below will 
+                be ignored.
 
        --help
-              ...prints this help.
+              ...prints this help all other parameters below will be ignored.
 
-       -nv
-              ...it will not output the complete text, but send the following text to stdout:
-                     on ok,  no entries found: "0"
-                     on NOT ok, entries found: "!"
+       -i
+              ...interactive mode without echo when entering the password.
 
-       -ok <oksymbol>
-              ...like plain but will replace the symbol for the ok case to <oksymbol>.
+       -ie
+              ...interactive mode with echo when entering the password, and 
+                with repeated password.
 
-       -nok <noksymbol>
-              ...like plain but will replace the symbol for the NOT ok case to <noksymbol>.
+       -r <RecordBegin> <FieldSeperator> <RecordBegin>
+              ...record pattern each line can have multiple records
+                a password (right hand side), 
+                whereas the <FieldSeperator> separates them.
+                Each line of the output will be in the form 
+                <AccountReference>:<NumberOfAppearences>
 
+       -p <ReferenceColumn> <PasswordColumn>
+              ...determines record field pick order.
+
+       -l
+              ...display only leaked passwords.
+
+       -ok <OKSymbol>
+              ...will replace the symbol for the ok case (0) by <OKSymbol>.
+
+       -nok <NOKSymbol>
+              ...will replace the number of appearences for the NOT ok case by 
+                <NOKSymbol>.
 
 ## Example 1
+To check which passwords in an CSV file are compromised (e.g. export from KeePass password database), 
+  you can pipe the CSV file to pwnedk as follows.
 
-You want to check whether the password "alexguo029" is leaked, type the command below. An exclamation mark will indicate that the password is leaked.
+### Command line (shell: bash)
+    cat ./exampledata/Database.csv | awk 'NR>1' | pwnedk -p 1 3 -nok "ATTENTION: Password is leaked!"
 
-### Command
-
-       echo "alexguo029" | pwnedk -nv
+IMPORTANT: If you use your real operational passwords, do NOT forget to delete the CSV-File!
 
 ### Output
-
-       !
-
+    500px:0
+    Adecco:0
+    Adobe:0
+    Sony:ATTENTION: Password is leaked!
+    Linux Mint:0
 
 ## Example 2
+If you want to be guided by pwnedk and understand the whole process then type 'pwnedk' as indicated below, and follow the instruction to enter the password.
 
-If you want to be guided and understand the whole process then type 'pwnedk' as indicated below, and follow the instruction to enter the password.
 
-### Command
+### Command line (shell: bash)
+    pwnedk -i
 
-       pwnedk
+NOTE: The switch "-i" will suppress printing the entered password. Alternatively, the switch '-ie' will cause the password to appear in clear text. 
+  See also Example 3.
 
 ### Output
 
-       NAME
-              pwnedk
+    NAME
+        pwnedk
 
-       SYNOPSIS
-              pwnedk [ option ]
+    SYNOPSIS
+        pwnedk [ --version ]
+        pwnedk [ --help ]
+        pwnedk [ -i | -ie ]
+        pwnedk [ -r <RecordBegin> <FieldSeperator> <RecordBegin> ]
+                [ -p <ReferenceColumn> <PasswordColumn> ]
+                [ -l ]
 
-       DESCRIPTION
-              Searches for leaked passwords applying k-anonymity.
-              K-anonymity means it does not send the password nor 
-              it sends the complete hash code.
+    DESCRIPTION
+        The command line tool 'pwnedk' checks quasi anonymously (applying 
+            *k-anonymity*) whether a particular password is leaked.
+        It searches for leaked passwords applying *k-anonymity* via the API 
+        "Searching by range" of haveibeenpwned.com (HIBP).
 
-              NOTE: It uses the API "Searching by range" from "haveibeenpwned.com".
-              See also: https://haveibeenpwned.com/API/v3#SearchingPwnedPasswordsByRange
+        ...
+        
+    Please, enter the password to check here:
+        The first 5 characters of the hash code are 7110E.
+        The command "curl https://api.pwnedpasswords.com/range/7110E is executed.
 
-       Please, enter the password to check here:alexguo029
+    The following entries have been found:
+        DA4D09E062AA5E4A390B0A572AC0D2C0220:1473205
 
-       The hash code of "alexguo029" is 21BD100D4F6E8FA6EECAD2A3AA415EEC418D38EC.
-       The first 5 characters of the hash code are 21BD1.
-       The command "curl https://api.pwnedpasswords.com/range/21BD1 is executed.
+        The number of found data sets of leaked passwords is 1473205.
 
-       The following entries have been found:
-       00D4F6E8FA6EECAD2A3AA415EEC418D38EC:3
+        Your password is leaked!
 
-       Your password "alexguo029" is leaked!
+        Do NOT use that password !
 
-       Do NOT use password "alexguo029"!
+            :-(
 
-              :-(
+## Example 3
+Like Example 2, but printing the password. This helps to reinsure the password has been entered and used correctly.
 
+### Command line (shell: bash)
+    pwnedk -ie
+
+NOTE: This example will print the entered password. Alternatively, the switch '-i' will cause the password NOT to appear in clear text. 
+  See also Example 2.
+
+### Output
+
+    NAME
+        pwnedk
+
+    SYNOPSIS
+        pwnedk [ --version ]
+        
+        ...
+        
+        NOTE: It uses the command line tool "curl".
+
+    Please, enter the password to check here:1234
+
+        The hash code of "1234" is 7110EDA4D09E062AA5E4A390B0A572AC0D2C0220.
+        The first 5 characters of the hash code are 7110E.
+        The command "curl https://api.pwnedpasswords.com/range/7110E is executed.
+
+    The following entries have been found:
+        DA4D09E062AA5E4A390B0A572AC0D2C0220:1473205
+
+        The number of found data sets of leaked passwords is 1473205.
+
+        Your password "1234" is leaked!
+
+        Do NOT use password "1234"!
+
+            :-(
 
 ## Questions?
 
 ### Q: Where do I see that pwnedk will not transfer the password in clear text and only a small portion of the hash-code?
 
-### A: In file PwnedK.hs there are the following lines:
+### A: In file PwnedKCore.hs there are the following lines:
 
-       let
-              sha1Hash = hexStringFromPassword sPassword
-              (first5FromHash, restFromHash) = Lst.splitAt 5 sha1Hash
-              requestURL = 
-                     "https://api.pwnedpasswords.com/range/" ++ first5FromHash
+    let
+        sha1Hash = hexStringFromPassword sPassword
+        (first5FromHash, restFromHash) = Lst.splitAt 5 sha1Hash
+        requestURL =
+            "https://api.pwnedpasswords.com/range/" ++ first5FromHash
+    commandResult <-
+        Sh.runCommandWithIO Nothing Nothing "curl" [requestURL] Nothing
+    return (processResultFromHIBP sha1Hash first5FromHash restFromHash requestURL commandResult)
 
 The line `sha1Hash = hexStringFromPassword sPassword` creates the hash code string.
 
@@ -131,19 +200,20 @@ The line `"https://api.pwnedpasswords.com/range/" ++ first5FromHash` shows that 
 
 ## Build requirements
 
-- Haskell Stack 2.11.1
-- cabal 3.6.2.0
-- GHC 9.2.8
+- GHCup 0.1.20.0
+- Haskell Stack 2.13.1
+- cabal 3.10.2.1
+- GHC 9.4.8
 
 
 ## How to build 'pwnedk'?
 
-- Install ghcup (https://www.haskell.org/ghcup/)
-- Achieve the above mentioned 'Build requirements'
+* Install ghcup (https://www.haskell.org/ghcup/)
+* Achieve the above mentioned 'Build requirements'
 
        1)a) on Windows by entering the following commands into a 'Command-line interface', CLI (cmd, bash, zsh), without the prompt (without '$')
-              $ ghcup install stack 2.11.1
-              $ ghcup set stack 2.11.1
+              $ ghcup install stack 2.13.1
+              $ ghcup set stack 2.13.1
               $ ghcup install cabal ...          # according to 'Build requirements'
               $ ghcup set cabal ...
               $ ghcup install ghc ...
@@ -151,18 +221,29 @@ The line `"https://api.pwnedpasswords.com/range/" ++ first5FromHash` shows that 
        1)b) on Linux or Mac by entering
               $ ghcup tui                        # inside setting up in console
 
-- Start build process via stack (The Haskell Tool Stack, https://docs.haskellstack.org/en/stable/)
+* Start build process via stack (The Haskell Tool Stack, https://docs.haskellstack.org/en/stable/) by:
 
-       - change working directory to project directory 'pwnedk', using command line tool 'cd'
-       - enter
-              $ stack build
+    * changing working directory to project directory 'pwnedk', using command line tool 'cd'
+    * enter:
 
+            $ stack build
+
+
+## How to create documentation?
+
+* enter:
+
+    $ stack haddock
 
 ## How to install 'pwnedk' after build?
 
-       - in CLI, enter
-              $ stack install
-       - you may have to set the environment path for the executable
+* in CLI, enter
+        
+        $ stack install
+
+* you may have to set the environment path for the executable
+
+    * the path of the executable image is printed by 'stack install'
 
 
 ## Author

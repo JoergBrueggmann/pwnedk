@@ -1,10 +1,10 @@
 name:                pwnedk
-version:             1.0.0.0
+version:             2.0.0
 github:              "githubuser/pwnedk"
 license:             GPL-3
 author:              "Jörg K.-H. W. Brüggmann"
 maintainer:          "info@joerg-brueggmann.de"
-copyright:           "2023 Jörg K.-H. W. Brüggmann"
+copyright:           "2023-2024 Jörg K.-H. W. Brüggmann"
 
 extra-source-files:
 - README.md
@@ -24,6 +24,9 @@ dependencies:
 - process
 - bytestring
 - cryptohash-sha1
+- split
+- echo
+- template-haskell
 
 ghc-options:
 - -Wall

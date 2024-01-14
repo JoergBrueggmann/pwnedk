@@ -1,7 +1,7 @@
 
 {-|
 Description : provides classes and functions helping to to reduce runtime errors.
-Copyright   : (c) Jörg K.-H. W. Brüggmann, 2021-2023
+Copyright   : (c) Jörg K.-H. W. Brüggmann, 2021-2024
 License     : GPLv3+, see also file 'LICENSE' and 'README.md'
 Maintainer  : info@joerg-brueggmann.de
 Stability   : experimental
@@ -83,7 +83,7 @@ module Safer (
 
 
 import Prelude hiding (Enum(..), take, splitAt, drop, head, replicate)
-import qualified Data.List as Lst
+import qualified Data.List as L
 import qualified Data.Bits as Bts hiding ((.|.), (.&.))
 
 
@@ -100,13 +100,13 @@ class Enum a where
     fromEnum            :: a -> Integer
 
 niLen :: [a] -> Integer
-niLen = Lst.genericLength
+niLen = L.genericLength
 
 take :: Integer -> [a] -> [a]
-take = Lst.genericTake
+take = L.genericTake
 
 drop :: Integer -> [a] -> [a]
-drop = Lst.genericDrop
+drop = L.genericDrop
 
 mHead :: [a] -> Maybe a
 mHead [] = Nothing
@@ -117,7 +117,7 @@ headDefault xDflt [] = xDflt
 headDefault _ (x:_) = x
 
 replicate :: Integer -> a -> [a]
-replicate = Lst.genericReplicate
+replicate = L.genericReplicate
 
 pad :: a -> Integer -> [a] -> [a]
 pad xToFill n lx = replicate nDiff xToFill ++ lx

@@ -7,7 +7,7 @@ dist-*
 cabal-dev
 *.o
 *.hi
-*.hie
+hie.yaml
 *.chi
 *.chs.h
 *.dyn_o
