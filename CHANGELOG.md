@@ -8,6 +8,8 @@ and this project adheres to the
 
 ## [Unreleased]
 
+- none -
+
 ## 2.0.0 - 2024-01-14
 
 ### Added
@@ -24,7 +26,7 @@ and this project adheres to the
 
 ### Fixed
 
-- none -
+- - none -
 
 ### Changed
 
@@ -46,12 +48,12 @@ and this project adheres to the
 
 ### Fixed
 
-- none -
+- - none -
 
 ### Changed
 
-- none -
+- - none -
 
 ### Removed
 
-- none -
+- - none -
