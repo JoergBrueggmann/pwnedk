@@ -19,4 +19,4 @@ Legend:
 
 ## Reporting a Vulnerability
 
-To report a vulnerability just go to discussions and describe the issue.
+To report a vulnerability just go to **Discussions** in *Category* **Security issue or vulnerability** and describe the issue.
