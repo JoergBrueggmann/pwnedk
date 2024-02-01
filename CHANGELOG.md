@@ -8,7 +8,9 @@ and this project adheres to the
 
 ## [Unreleased]
 
-- none -
+### Changed
+
+- partly prepare for package upload
 
 ## 2.0.0 - 2024-01-14
 
